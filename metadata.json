@@ -1,0 +1,6 @@
+{
+  "name": "CHILL TREADS | Premium Streetwear",
+  "description": "Wear Your Vibe. Stay Chill. Premium oversized streetwear T-shirts for men and women crafted with heavyweight cotton and minimal monochrome aesthetic.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

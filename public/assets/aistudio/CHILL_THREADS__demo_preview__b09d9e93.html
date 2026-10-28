@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CHILL THREADS (demo preview)</title>
+<style>
+:root{--bg:#fff;--fg:#0a0a0a;--grey:#e8e8e8;--mid:#6b6b6b;--char:#2b2b2d;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111;--fg:#f2f2f2;--grey:#2a2a2c;--mid:#a0a0a0;--char:#d0d0d0}}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--fg);line-height:1.5}
+h1,h2,h3{font-weight:800;letter-spacing:-.02em;line-height:1.05;margin:0 0 1rem}h1{font-size:clamp(2.2rem,7vw,4.5rem)}h2{font-size:clamp(1.6rem,4vw,2.4rem)}h3{font-size:1rem;margin:.6rem 0 .1rem}
+a{color:inherit}p{margin:.4rem 0}.wrap{max-width:1200px;margin:0 auto;padding:0 1.25rem}.sec{padding:3rem 1.25rem}.small{font-size:.85rem;color:var(--mid)}.sr{position:absolute;left:-999px}
+:focus-visible{outline:3px solid var(--char);outline-offset:2px}
+.an{background:#0a0a0a;color:#fff;text-align:center;font-size:.78rem;padding:.4rem}.demo{background:#ffd84d;color:#111;text-align:center;font-size:.78rem;padding:.35rem .75rem;font-weight:600}
+header{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);border-bottom:1px solid var(--grey);z-index:10}
+.bar{display:flex;align-items:center;justify-content:space-between;height:60px;gap:.5rem}.logo{font-weight:900;letter-spacing:.12em;text-decoration:none}
+nav.m{display:none;position:absolute;top:60px;left:0;right:0;background:var(--bg);flex-direction:column;padding:1rem 1.25rem;border-bottom:1px solid var(--grey)}nav.m.open{display:flex}
+nav a,.cl{text-decoration:none;font-weight:600;padding:.6rem 0;font-size:.9rem}.act{display:flex;gap:.6rem;align-items:center}
+.b,.lk{background:none;border:0;font:inherit;font-weight:600;color:inherit;cursor:pointer;padding:.5rem 0}.lk{text-decoration:underline;color:var(--mid)}
+.sr2{display:flex;gap:.5rem;padding-top:.5rem;padding-bottom:.75rem}.sr2 input{flex:1;min-width:0;padding:.8rem;border:2px solid var(--grey);font:inherit;background:var(--bg);color:var(--fg)}
+.hero{position:relative;color:#fff;min-height:78vh;display:flex;align-items:center;background:linear-gradient(135deg,#0a0a0a,#2b2b2d 60%,#4a4a4d)}.lead{font-size:1.1rem;max-width:30rem}.note{position:absolute;bottom:.75rem;right:1rem;font-size:.7rem;color:#aaa}
+.ctas{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem}
+.btn{display:inline-block;background:var(--fg);color:var(--bg);padding:1rem 2rem;border:2px solid var(--fg);font:inherit;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:.2s}
+.btn:hover:not(:disabled){transform:translateY(-2px);opacity:.85}.btn:disabled{opacity:.4;cursor:not-allowed}.full{width:100%;margin-top:1rem}.gh{background:transparent;color:inherit;border-color:currentColor}
+.hero .btn{background:#fff;color:#0a0a0a;border-color:#fff}.hero .gh{background:transparent;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}.card{text-decoration:none}.ci{aspect-ratio:4/5;background:var(--grey);overflow:hidden}
+.ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;color:var(--mid);font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;text-align:center;padding:.5rem;transition:transform .4s}.card:hover .ph{transform:scale(1.04)}.ph svg{width:40%;stroke-width:2}
+.cols{display:grid;gap:1rem}.cc{display:flex;flex-direction:column;justify-content:flex-end;gap:.75rem;min-height:300px;padding:1.5rem;background:linear-gradient(160deg,#e8e8e8,#bdbdbf);color:#0a0a0a;text-decoration:none;transition:transform .3s}.cc:hover{transform:translateY(-4px)}.cc strong{font-size:1.5rem;font-weight:800}.cc .btn{align-self:flex-start;background:#0a0a0a;color:#fff;border-color:#0a0a0a}
+.drop{background:#0a0a0a;color:#fff;padding:4rem 0}.story{background:var(--grey);padding:4rem 0}.story p{max-width:640px}
+.fl{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-bottom:1.5rem}.fl select{padding:.6rem;font:inherit;border:2px solid var(--grey);background:var(--bg);color:var(--fg)}
+.pdp{display:grid;gap:2rem}.pi{aspect-ratio:4/5;background:var(--grey)}.th{display:flex;gap:.5rem;margin-top:.5rem}.th button{width:48px;height:48px;border:2px solid var(--grey);background:var(--bg);color:var(--fg);cursor:pointer}.th .on{border-color:var(--fg)}
+.sizes{border:0;padding:0;margin:1.5rem 0;display:flex;gap:.5rem;flex-wrap:wrap}.sizes legend{font-weight:700;margin-bottom:.5rem}
+.size{position:relative;min-width:52px;text-align:center;border:2px solid var(--grey);padding:.7rem;cursor:pointer;font-weight:600}.size input{position:absolute;inset:0;opacity:0;margin:0}.size.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}.size:focus-within{outline:3px solid var(--char)}
+.qty{display:inline-flex;align-items:center;border:2px solid var(--grey)}.qty button{width:44px;height:44px;background:none;border:0;font-size:1.2rem;color:inherit;cursor:pointer}.qty output{min-width:36px;text-align:center;font-weight:700}
+details{border-top:1px solid var(--grey);margin-top:1rem;padding-top:.75rem}summary{cursor:pointer;font-weight:700}
+.lines{list-style:none;padding:0;margin:0}.lines li{display:grid;grid-template-columns:1fr auto;gap:.75rem;align-items:center;padding:1rem 0;border-bottom:1px solid var(--grey)}
+.sub{font-size:1.3rem;display:flex;justify-content:space-between;margin-top:1.5rem}.state{padding:1rem 0;color:var(--mid)}.narrow{max-width:720px}.rel{grid-column:1/-1;margin-top:2rem}
+footer{background:#0a0a0a;color:#e8e8e8;padding:3rem 0 1rem;margin-top:3rem}.fi{display:flex;flex-direction:column;gap:1.5rem}.fi nav{display:flex;flex-wrap:wrap;gap:1rem}
+@media(min-width:768px){.grid{grid-template-columns:repeat(4,1fr);gap:1.5rem}.cols{grid-template-columns:repeat(3,1fr)}.pdp{grid-template-columns:1.2fr 1fr;gap:3rem}.mb{display:none}nav.m{display:flex;position:static;flex-direction:row;gap:1.1rem;border:0;padding:0}.lines li{grid-template-columns:1fr auto auto auto}.fi{flex-direction:row;justify-content:space-between}}
+</style>
+</head>
+<body>
+<div class="an">[Edit announcement text]</div>
+<div class="demo" role="note">DEMO MODE: concept products and mockup placeholders. Not real stock. Checkout is disabled.</div>
+<header><div class="wrap bar">
+<button class="b mb" id="mb" aria-expanded="false" aria-controls="nav">Menu</button>
+<a class="logo" href="#/">CHILL THREADS</a>
+<nav class="m" id="nav" aria-label="Main"><a href="#/">Home</a><a href="#/shop">Shop All</a><a href="#/c/men">Men</a><a href="#/c/women">Women</a><a href="#/c/unisex">Unisex</a><a href="#/new-drops">New Drops</a><a href="#/about">About</a><a href="#/contact">Contact</a></nav>
+<div class="act"><button class="b" id="sb" aria-expanded="false" aria-controls="sf">Search</button><a class="cl" id="cl" href="#/cart">Bag (0)</a></div></div>
+<form id="sf" class="wrap sr2" role="search" hidden><label class="sr" for="q">Search products</label><input id="q" placeholder="Search by product name"><button class="btn" type="submit">Search</button></form></header>
+<main id="app"></main>
+<footer><div class="wrap fi"><div><strong class="logo">CHILL THREADS</strong><p>Your Pace. Your Style.</p></div>
+<nav aria-label="Footer"><a href="#/about">About</a><a href="#/c/men">Shop Men</a><a href="#/c/women">Shop Women</a><a href="#/c/unisex">Shop Unisex</a><a href="#/contact">Contact</a><a href="#/page/shipping">Shipping policy</a><a href="#/page/returns">Returns and refund policy</a><a href="#/page/privacy">Privacy policy</a><a href="#/page/terms">Terms and conditions</a></nav></div>
+<p class="wrap small">© 2026 CHILL THREADS. All rights reserved.</p></footer>
+<script>
+const T={Black:"#161616",White:"#f4f4f4","Washed charcoal":"#4a4a4d","Washed grey":"#9a9a9d"};
+const R=[["shadow-realm","SHADOW REALM","men","Black","Original monochrome gothic or abstract graphic. Small wordmark on the front, large artwork on the back."],["wave-theory","WAVE THEORY","men","White","Original Japanese-wave-inspired illustration. Minimal chest graphic, large wave on the back."],["after-hours","AFTER HOURS","men","Washed charcoal","Original retro typography and butterfly-inspired design. Vintage streetwear."],["neko-drift","NEKO DRIFT","men","Black","Original Japanese-inspired streetwear illustration with original characters only."],["good-things","GOOD THINGS","men","White","Bold original typography with a small illustrative element."],["lost-soul","LOST SOUL","men","Black","Original monochrome fantasy illustration. Dark editorial streetwear."],["angel-energy","ANGEL ENERGY","women","Black","Original angel-inspired monochrome illustration. Small logo on the front, large graphic on the back."],["cherry-static","CHERRY STATIC","women","White","Original cherry-inspired red graphic. Playful, clean streetwear."],["after-dark","AFTER DARK","women","Washed charcoal","Original gothic typography. Dark, minimal streetwear."],["pink-noise","PINK NOISE","women","Black","Original pink abstract graphic. Bold, contemporary streetwear."],["moon-child","MOON CHILD","women","White","Original moon and celestial illustrations."],["offline-babe","OFFLINE BABE","women","Washed grey","Original playful typography. Casual, expressive streetwear."]].map(([h,t,c,col,n])=>({h,t,c,col,n}));
+const CN={men:"Men’s Streetwear",women:"Women’s Streetwear",unisex:"Unisex Collection"},SZ=["S","M","L","XL","XXL"];
+const V="[VERIFY BEFORE LAUNCH] ";
+const INFO={about:["About","Chill Threads is a streetwear brand built around graphic oversized T-shirts: expressive artwork, relaxed silhouettes and everyday style."],contact:["Contact","[Add business email, support hours and social links in src/config.js]"],"new-drops":["THE NEXT DROP","Drop details have not been announced yet."],shipping:["Shipping policy",V+"Add real delivery areas, times, carriers and charges."],returns:["Returns and refund policy",V+"Add your real return and refund terms."],privacy:["Privacy policy",V+"Add your privacy policy."],terms:["Terms and conditions",V+"Add your terms."]};
+let cart=[],sel=null,qty=1,img=0,msg="";try{cart=JSON.parse(localStorage.getItem("ct2")||"[]")}catch(e){}
+const save=()=>{try{localStorage.setItem("ct2",JSON.stringify(cart))}catch(e){}};
+const ph=(l,t)=>{const lt=["#f4f4f4","#9a9a9d"].includes(t);return`<div class="ph" role="img" aria-label="${l}"><svg viewBox="0 0 100 120" aria-hidden="true"><path style="fill:${t||"#d0d0d0"};stroke:${lt?"#777":"#555"}" d="M30 10 L10 28 L22 42 L30 36 V108 H70 V36 L78 42 L90 28 L70 10 Q50 24 30 10Z"/></svg><span>${l}</span></div>`};
+const card=p=>`<a class="card" href="#/p/${p.h}"><div class="ci">${ph("Mockup placeholder",T[p.col])}</div><h3>${p.t}</h3><p class="small">${p.col}</p><p>₹649 <span class="small">(demo price)</span></p></a>`;
+function shop(c,q,col){const all=!c;let l=R.filter(p=>(!c||p.c===c)&&(!col||p.col===col)&&(!q||p.t.toLowerCase().includes(q.toLowerCase())));
+ const cols=[...new Set(R.map(p=>p.col))];
+ return`<section class="wrap sec"><h1>${c?CN[c]:"Shop All"}</h1><div class="fl"><label>Colour <select id="colf"><option value="">All</option>${cols.map(x=>`<option ${x==col?"selected":""}>${x}</option>`).join("")}</select></label>${q||col?`<button class="lk" id="clr">Clear filters</button>`:""}${q?`<span class="small">Search: “${q.replace(/</g,"")}”</span>`:""}</div>${l.length?`<div class="grid">${l.map(card).join("")}</div>`:`<div class="state"><p>${c==="unisex"&&!q&&!col?"No unisex products have been added yet.":"No products match your search or filters."}</p><a href="#/shop">View all products</a></div>`}</section>`}
+function view(){
+ const full=location.hash.slice(1)||"/",[h,qs]=full.split("?"),sp=new URLSearchParams(qs||""),[,r,a]=h.split("/");let o="";
+ if(!r)o=`<section class="hero"><div class="wrap"><h1>YOUR PACE.<br>YOUR STYLE.</h1><p class="lead">Original graphics. Oversized fits. Everyday streetwear.</p><div class="ctas"><a class="btn" href="#/new-drops">SHOP THE DROP</a><a class="btn gh" href="#/shop">EXPLORE COLLECTIONS</a></div></div><span class="note">Hero campaign image placeholder</span></section>
+ <section class="wrap sec"><h2>Shop by collection</h2><div class="cols">${[["men","MEN’S STREETWEAR"],["women","WOMEN’S STREETWEAR"],["unisex","UNISEX COLLECTION"]].map(([s,t])=>`<a class="cc" href="#/c/${s}"><span class="small">Collection image placeholder</span><strong>${t}</strong><span class="btn">SHOP NOW</span></a>`).join("")}</div></section>
+ <section class="wrap sec"><h2>FEATURED GRAPHICS</h2><div class="grid">${R.slice(0,4).map(card).join("")}</div></section>
+ <section class="drop"><div class="wrap"><h2>THE NEXT DROP</h2><a class="btn gh" href="#/new-drops">DISCOVER THE COLLECTION</a></div></section>
+ <section class="story"><div class="wrap"><h2>MADE TO STAND OUT.</h2><p>Chill Threads is built around expressive graphics, relaxed silhouettes and everyday streetwear. Find your fit, choose your graphic, and make it your own.</p></div></section>
+ <section class="wrap sec"><h2>Newsletter</h2><div class="sr2"><label class="sr" for="nl">Email</label><input id="nl" type="email" placeholder="Email address" disabled><button class="btn" disabled>Subscribe</button></div><p class="small">Newsletter signup is disabled until a real email service is configured.</p></section>`;
+ else if(r==="shop")o=shop(null,sp.get("q")||"",sp.get("colour")||"");
+ else if(r==="c")o=shop(a,sp.get("q")||"",sp.get("colour")||"");
+ else if(r==="p"){const p=R.find(x=>x.h===a);o=!p?`<section class="wrap sec"><h1>Product not found</h1><a href="#/shop">Back to shop</a></section>`:
+  `<section class="wrap sec pdp"><div><div class="pi">${ph(p.t+(img?" back":" front")+", mockup placeholder",T[p.col])}</div><div class="th">${[0,1].map(i=>`<button class="${i==img?"on":""}" data-img="${i}" aria-label="Show ${i?"back":"front"} image" aria-pressed="${i==img}">${i?"B":"F"}</button>`).join("")}</div></div>
+  <div><h1>${p.t}</h1><p><strong style="font-size:1.3rem">₹649</strong> <span class="small">demo price</span></p><p class="small">Colour: ${p.col}</p><p>Concept: ${p.n}</p>
+  <fieldset class="sizes"><legend>Size (demo sizes)</legend>${SZ.map(s=>`<label class="size ${sel==s?"on":""}"><input type="radio" name="s" value="${s}" ${sel==s?"checked":""}>${s}</label>`).join("")}</fieldset>
+  <div class="qty" role="group" aria-label="Quantity"><button data-q="-1" aria-label="Decrease quantity">−</button><output>${qty}</output><button data-q="1" aria-label="Increase quantity">+</button></div>${msg?`<p class="state" role="alert">${msg}</p>`:""}
+  <button class="btn full" data-add="${p.h}">Add to Cart</button>
+  <details><summary>Size guide</summary><p>[Add your verified size chart. Men’s and women’s measurements may differ.]</p></details><details><summary>Fabric and care</summary><p>[Add fabric, GSM and care instructions once verified.]</p></details><details><summary>Shipping and returns</summary><p>See our <a href="#/page/shipping">shipping</a> and <a href="#/page/returns">returns</a> policies.</p></details></div>
+  <div class="rel"><h2>Related products</h2><div class="grid">${R.filter(x=>x.c===p.c&&x.h!==p.h).slice(0,4).map(card).join("")}</div></div></section>`}
+ else if(r==="cart")o=!cart.length?`<section class="wrap sec"><h1>Your cart</h1><p class="state">Your cart is empty.</p><a class="btn" href="#/shop">Continue shopping</a></section>`:
+  `<section class="wrap sec"><h1>Your cart</h1><ul class="lines">${cart.map((c,i)=>`<li><div><strong>${c.t}</strong><br><span class="small">${c.col} · Size ${c.s}</span></div><div class="qty" role="group" aria-label="Quantity"><button data-cq="${i}:-1" aria-label="Decrease quantity">−</button><output>${c.q}</output><button data-cq="${i}:1" aria-label="Increase quantity">+</button></div><span>₹${649*c.q}</span><button class="lk" data-rm="${i}">Remove</button></li>`).join("")}</ul>
+  <p class="sub">Subtotal <strong>₹${cart.reduce((n,c)=>n+649*c.q,0)}</strong></p><p class="small">Demo prices. Shipping and taxes are calculated at checkout.</p><a class="lk" href="#/shop">Continue shopping</a><button class="btn full" disabled>Checkout</button><p class="state">Checkout is not connected. It will redirect to Shopify Checkout once connected. No payment is simulated.</p></section>`;
+ else{const i=INFO[a||r]||["Page not found","This page does not exist."];o=`<section class="wrap sec narrow"><h1>${i[0]}</h1><p>${i[1]}</p>${(a||r)==="new-drops"?`<a class="btn" href="#/shop">Shop All</a>`:""}</section>`}
+ document.getElementById("app").innerHTML=o;document.title=(i=>i?i+" | CHILL THREADS":"CHILL THREADS (demo preview)")(r==="p"?R.find(x=>x.h===a)?.t:null);
+ document.getElementById("cl").textContent="Bag ("+cart.reduce((n,c)=>n+c.q,0)+")";}
+const nav=document.getElementById("nav"),mb=document.getElementById("mb"),sf=document.getElementById("sf"),sb=document.getElementById("sb");
+addEventListener("hashchange",()=>{sel=null;qty=1;img=0;msg="";nav.classList.remove("open");mb.setAttribute("aria-expanded","false");mb.textContent="Menu";sf.hidden=true;sb.setAttribute("aria-expanded","false");view();scrollTo(0,0)});
+mb.onclick=()=>{const o=nav.classList.toggle("open");mb.setAttribute("aria-expanded",o);mb.textContent=o?"Close":"Menu"};
+sb.onclick=()=>{sf.hidden=!sf.hidden;sb.setAttribute("aria-expanded",!sf.hidden);if(!sf.hidden)document.getElementById("q").focus()};
+sf.onsubmit=e=>{e.preventDefault();const v=document.getElementById("q").value.trim();document.getElementById("q").value="";location.hash="#/shop?q="+encodeURIComponent(v)};
+const app=document.getElementById("app");
+app.addEventListener("click",e=>{const t=e.target.closest("[data-q],[data-add],[data-cq],[data-rm],[data-img],#clr");if(!t)return;
+ if(t.id==="clr"){location.hash=location.hash.split("?")[0];return}
+ if(t.dataset.q)qty=Math.max(1,qty+ +t.dataset.q);else if(t.dataset.img)img=+t.dataset.img;
+ else if(t.dataset.add){if(!sel){msg="Please select a size.";view();return}const p=R.find(x=>x.h===t.dataset.add),f=cart.find(c=>c.h===p.h&&c.s===sel);f?f.q+=qty:cart.push({h:p.h,t:p.t,col:p.col,s:sel,q:qty});save();location.hash="#/cart";return}
+ else if(t.dataset.cq){const[i,d]=t.dataset.cq.split(":");cart[i].q=Math.max(1,cart[i].q+ +d);save()}else if(t.dataset.rm){cart.splice(+t.dataset.rm,1);save()}
+ view()});
+app.addEventListener("change",e=>{if(e.target.name==="s"){sel=e.target.value;msg="";view();document.querySelector('input[value="'+sel+'"]')?.focus()}
+ if(e.target.id==="colf"){const b=location.hash.split("?")[0],sp=new URLSearchParams(location.hash.split("?")[1]||"");e.target.value?sp.set("colour",e.target.value):sp.delete("colour");location.hash=b+(sp.toString()?"?"+sp:"")}});
+view();
+</script>
+</body>
+</html>

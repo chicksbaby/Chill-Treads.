@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Production Build Output
+dist/
+build/
+coverage/
+
+# Vercel Deployment Cache
+.vercel/
+
+# Local SQLite Database Files (Do not commit persistent DBs to Git)
+data/*.db
+data/*.db-wal
+data/*.db-shm
+
+# Environment Variables & Secrets
+.env*
+!.env.example
+
+# Logs and OS Metadata
+*.log
+.DS_Store
+Thumbs.db
